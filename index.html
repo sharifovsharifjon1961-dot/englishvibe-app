@@ -3,333 +3,759 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
   <title>CEFR Mock Exam</title>
+  
+  <!-- Telegram Web App Script -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & THEME MAPPING
+       ========================================================================== */
     :root {
+      /* Telegram Theme Variables with Smart Fallbacks (Light Mode Default) */
       --tg-bg: var(--tg-theme-bg-color, #ffffff);
-      --tg-text: var(--tg-theme-text-color, #222222);
-      --tg-hint: var(--tg-theme-hint-color, #888888);
+      --tg-text: var(--tg-theme-text-color, #000000);
+      --tg-hint: var(--tg-theme-hint-color, #999999);
       --tg-link: var(--tg-theme-link-color, #3390ec);
       --tg-btn: var(--tg-theme-button-color, #3390ec);
       --tg-btn-text: var(--tg-theme-button-text-color, #ffffff);
-      --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #f0f0f0);
+      --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #f1f1f1);
+
+      /* Semantic Mapping for Consistent UI */
+      --color-bg: var(--tg-bg);
+      --color-surface: var(--tg-secondary-bg);
+      --color-text: var(--tg-text);
+      --color-text-secondary: var(--tg-hint);
+      --color-accent: var(--tg-btn);
+      --color-accent-text: var(--tg-btn-text);
+      --color-border: rgba(128, 128, 128, 0.2);
       
-      --accent: var(--tg-btn);
-      --border: 1px solid rgba(0, 0, 0, 0.1);
-      --radius: 4px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      /* Status Colors */
+      --color-success: #34c759;
+      --color-danger: #ff3b30;
+      --color-warning: #ff9500;
+
+      /* Typography */
+      --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
+      
+      /* Spacing & Layout */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    /* Dark Mode Fallback Adjustments (if Telegram theme is incomplete) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-border: rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
-      font-family: var(--font-sans);
-      background-color: var(--tg-bg);
-      color: var(--tg-text);
+      font-family: var(--font-ui);
+      background-color: var(--color-bg);
+      color: var(--color-text);
       line-height: 1.5;
-      font-size: 16px;
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height for mobile */
       padding-top: var(--safe-top);
       padding-bottom: var(--safe-bottom);
+      overflow-x: hidden;
     }
 
     .hidden { display: none !important; }
 
-    /* Header */
+    /* ==========================================================================
+       3. TYPOGRAPHY & UTILITIES
+       ========================================================================== */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .text-serif {
+      font-family: var(--font-serif);
+    }
+
+    .text-tabular {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+
+    /* ==========================================================================
+       4. LAYOUT & HEADER
+       ========================================================================== */
     #app-header {
-      padding: 16px;
-      border-bottom: var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 12px 16px;
+      padding-top: max(12px, var(--safe-top));
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--tg-secondary-bg);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    #header-title { font-size: 18px; font-weight: 600; }
 
-    /* Buttons */
+    #header-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    main {
+      padding: 16px;
+      padding-bottom: calc(16px + var(--safe-bottom));
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn 200ms ease-out;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       5. BUTTONS & INTERACTIVE ELEMENTS
+       ========================================================================== */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 16px;
-      border: var(--border);
-      border-radius: var(--radius);
-      background: var(--tg-bg);
-      color: var(--tg-text);
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
       font-size: 15px;
       font-weight: 500;
+      text-decoration: none;
       cursor: pointer;
-      transition: background 150ms, border-color 150ms;
-      min-height: 44px;
+      border: 1px solid transparent;
+      transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease;
     }
-    .btn:active { background: var(--tg-secondary-bg); }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
     .btn-primary {
-      background: var(--tg-btn);
-      color: var(--tg-btn-text);
-      border-color: var(--tg-btn);
+      background-color: var(--color-accent);
+      color: var(--color-accent-text);
     }
-    .btn-primary:active { opacity: 0.9; }
-    .btn-secondary { font-size: 14px; padding: 8px 12px; }
-    .btn-icon { padding: 8px; min-height: 44px; min-width: 44px; }
-    .btn-icon.flagged { color: #e67e22; fill: #e67e22; }
 
-    /* Views */
-    .view { display: none; padding: 16px; }
-    .view.active { display: block; }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      font-size: 14px;
+      min-height: 36px;
+      padding: 6px 12px;
+    }
 
-    /* Filter Bar */
+    .btn-icon {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 10px;
+      background-color: transparent;
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-icon.flagged {
+      color: var(--color-warning);
+      border-color: var(--color-warning);
+      background-color: rgba(255, 149, 0, 0.1);
+    }
+
+    /* ==========================================================================
+       6. MOCK LIST & FILTERS
+       ========================================================================== */
     .filter-bar {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 12px;
+      margin-bottom: 8px;
+      scrollbar-width: none; /* Firefox */
     }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
     .filter-btn {
-      padding: 8px 16px;
-      border: var(--border);
-      border-radius: 20px;
-      background: var(--tg-bg);
-      color: var(--tg-hint);
+      flex-shrink: 0;
+      min-height: 36px;
+      padding: 0 16px;
+      border-radius: 18px;
+      background-color: var(--color-surface);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
       font-size: 14px;
-      white-space: nowrap;
+      font-weight: 500;
       cursor: pointer;
+      transition: all 150ms ease;
     }
+
     .filter-btn.active {
-      background: var(--tg-text);
-      color: var(--tg-bg);
-      border-color: var(--tg-text);
+      background-color: var(--color-text);
+      color: var(--color-bg);
+      border-color: var(--color-text);
     }
 
-    /* Mocks Grid */
-    .mocks-grid { display: flex; flex-direction: column; gap: 12px; }
+    .mocks-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .mock-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
       padding: 16px;
-      border: var(--border);
-      border-radius: var(--radius);
-      background: var(--tg-bg);
       cursor: pointer;
-      transition: border-color 150ms;
+      transition: border-color 150ms ease, background-color 150ms ease;
     }
-    .mock-card:active { border-color: var(--accent); }
-    .mock-card h3 { font-size: 16px; margin-bottom: 4px; }
-    .mock-card .meta { font-size: 13px; color: var(--tg-hint); }
 
-    /* Modules Grid */
-    .modules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .mock-card:active {
+      background-color: var(--color-surface);
+      border-color: var(--color-accent);
+    }
+
+    .mock-card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--color-text);
+    }
+
+    .mock-card .meta {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      display: flex;
+      gap: 12px;
+    }
+
+    /* ==========================================================================
+       7. MODULE SELECTION GRID
+       ========================================================================== */
+    .info-block {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .module-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
       padding: 20px 16px;
-      border: var(--border);
-      border-radius: var(--radius);
-      text-align: left;
       cursor: pointer;
-      background: var(--tg-bg);
+      transition: all 150ms ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .module-card:active { background: var(--tg-secondary-bg); }
-    .module-card h4 { font-size: 15px; margin-bottom: 4px; }
-    .module-card .status { font-size: 12px; color: var(--tg-hint); }
 
-    /* Exam Top Bar */
+    .module-card:active {
+      background-color: var(--color-surface);
+      transform: scale(0.98);
+    }
+
+    .module-card h4 {
+      font-size: 15px;
+      color: var(--color-text);
+    }
+
+    .module-card .status {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .module-card .status.accent {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       8. EXAM INTERFACE: TOP BAR & NAVIGATOR
+       ========================================================================== */
     .exam-top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: var(--border);
+      border-bottom: 1px solid var(--color-border);
     }
-    .timer {
-      font-family: monospace;
-      font-size: 18px;
-      font-variant-numeric: tabular-nums;
-      font-weight: 600;
-      color: var(--tg-text);
-    }
-    .timer.warning { color: #e74c3c; }
 
-    /* Question Navigator */
+    .timer {
+      font-family: var(--font-ui);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .timer.warning {
+      color: var(--color-danger);
+      animation: pulse-timer 1s infinite;
+    }
+
+    @keyframes pulse-timer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
     .question-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       padding: 12px;
-      background: var(--tg-secondary-bg);
-      border-radius: var(--radius);
+      background-color: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
     }
+
     .q-nav-btn {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
       border: 1px solid transparent;
-      border-radius: var(--radius);
-      background: var(--tg-bg);
-      color: var(--tg-text);
+      background-color: var(--color-bg);
+      color: var(--color-text);
       font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      transition: all 150ms ease;
     }
-    .q-nav-btn.active { border-color: var(--accent); font-weight: 600; }
-    .q-nav-btn.answered { background: var(--tg-btn); color: var(--tg-btn-text); }
+
+    .q-nav-btn:active { transform: scale(0.95); }
+    .q-nav-btn.active { border-color: var(--color-accent); font-weight: 700; }
+    .q-nav-btn.answered { background-color: var(--color-accent); color: var(--color-accent-text); }
+    
     .q-nav-btn.flagged::after {
       content: '';
       position: absolute;
-      top: 2px;
-      right: 2px;
+      top: 4px;
+      right: 4px;
       width: 6px;
       height: 6px;
-      background: #e67e22;
+      background-color: var(--color-warning);
       border-radius: 50%;
     }
-    .q-nav-btn.no-key { background: var(--tg-hint); color: var(--tg-bg); opacity: 0.7; }
 
-    /* Exam Content */
-    .exam-content { line-height: 1.6; }
+    .q-nav-btn.no-key {
+      background-color: var(--color-text-secondary);
+      color: var(--color-bg);
+      opacity: 0.6;
+    }
+
+    /* ==========================================================================
+       9. EXAM CONTENT: PASSAGES & OPTIONS
+       ========================================================================== */
+    .exam-content {
+      padding-bottom: 80px; /* Space for floating main button if needed */
+    }
+
     .passage {
       font-family: var(--font-serif);
       font-size: 16px;
+      line-height: 1.7;
+      color: var(--color-text);
       white-space: pre-wrap;
-      background: var(--tg-secondary-bg);
-      padding: 16px;
-      border-radius: var(--radius);
-      margin-bottom: 20px;
-      border-left: 3px solid var(--accent);
+      background-color: var(--color-surface);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      border-left: 3px solid var(--color-accent);
     }
-    .question-block { margin-bottom: 24px; }
-    .question-text { font-weight: 600; margin-bottom: 12px; font-size: 16px; }
-    .options-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .question-block {
+      margin-bottom: 28px;
+    }
+
+    .question-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .option-label {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 12px;
-      border: var(--border);
-      border-radius: var(--radius);
+      padding: 14px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-bg);
       cursor: pointer;
-      transition: background 150ms;
+      transition: all 150ms ease;
     }
-    .option-label:active { background: var(--tg-secondary-bg); }
-    .option-label input { margin-top: 3px; accent-color: var(--accent); width: 18px; height: 18px; }
-    .option-label.selected { border-color: var(--accent); background: rgba(51, 144, 236, 0.05); }
 
-    /* Listening specific */
-    .audio-player {
-      width: 100%;
-      margin-bottom: 16px;
-      padding: 12px;
-      background: var(--tg-secondary-bg);
-      border-radius: var(--radius);
+    .option-label:active {
+      background-color: var(--color-surface);
+    }
+
+    .option-label.selected {
+      border-color: var(--color-accent);
+      background-color: rgba(51, 144, 236, 0.08); /* Subtle accent tint */
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 2px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .option-label span {
+      font-size: 15px;
+      line-height: 1.4;
+      color: var(--color-text);
+    }
+
+    /* ==========================================================================
+       10. LISTENING & SPEAKING COMPONENTS
+       ========================================================================== */
+    .audio-container {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid var(--color-border);
       text-align: center;
     }
-    .audio-empty { color: var(--tg-hint); font-style: italic; padding: 20px; text-align: center; }
 
-    /* Speaking specific */
-    .recorder-ui { text-align: center; padding: 20px; }
+    .audio-container audio {
+      width: 100%;
+      height: 40px;
+      border-radius: var(--radius-sm);
+    }
+
+    .audio-empty {
+      color: var(--color-text-secondary);
+      font-style: italic;
+      font-size: 14px;
+      padding: 12px 0;
+    }
+
+    .recorder-ui {
+      text-align: center;
+      padding: 24px 16px;
+      background-color: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      margin-bottom: 20px;
+    }
+
+    .record-timer {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
     .record-btn {
-      width: 64px;
-      height: 64px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      background: #e74c3c;
+      background-color: var(--color-danger);
       border: none;
       color: white;
-      font-size: 14px;
       cursor: pointer;
-      margin: 16px auto;
+      margin: 0 auto 16px;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 150ms ease;
     }
-    .record-btn.recording { animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); } 70% { box-shadow: 0 0 0 16px rgba(231, 76, 60, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
 
-    /* Writing specific */
+    .record-btn:active { transform: scale(0.95); }
+    
+    .record-btn.recording {
+      animation: pulse-record 1.5s infinite;
+    }
+
+    @keyframes pulse-record {
+      0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4); }
+      70% { box-shadow: 0 0 0 18px rgba(255, 59, 48, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+    }
+
+    .record-status {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .playback-audio {
+      width: 100%;
+      margin-top: 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       11. WRITING COMPONENTS
+       ========================================================================== */
+    .writing-prompt {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.6;
+      background-color: var(--color-surface);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--color-accent);
+      margin-bottom: 16px;
+    }
+
     .writing-area {
       width: 100%;
-      min-height: 200px;
-      padding: 12px;
-      border: var(--border);
-      border-radius: var(--radius);
-      background: var(--tg-bg);
-      color: var(--tg-text);
-      font-family: var(--font-sans);
+      min-height: 220px;
+      padding: 16px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-ui);
       font-size: 16px;
+      line-height: 1.6;
       resize: vertical;
+      outline: none;
+      transition: border-color 150ms ease;
     }
-    .word-count { text-align: right; font-size: 13px; color: var(--tg-hint); margin-top: 4px; }
-    .word-count.below-min { color: #e74c3c; }
 
-    /* Results */
-    .results-summary { text-align: center; padding: 24px; border-bottom: var(--border); margin-bottom: 16px; }
-    .score-display { font-size: 32px; font-weight: 700; color: var(--accent); margin: 8px 0; }
-    .review-item { padding: 12px; border-bottom: var(--border); }
-    .review-item.correct { border-left: 3px solid #27ae60; }
-    .review-item.incorrect { border-left: 3px solid #e74c3c; }
-    .review-item.no-key { border-left: 3px solid var(--tg-hint); }
+    .writing-area:focus {
+      border-color: var(--color-accent);
+    }
 
-    /* Utilities */
-    .info-block { padding: 12px; background: var(--tg-secondary-bg); border-radius: var(--radius); font-size: 14px; color: var(--tg-hint); }
-  </style>
+    .word-count {
+      text-align: right;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-top: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .word-count.below-min {
+      color: var(--color-danger);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       12. RESULTS SCREEN
+       ========================================================================== */
+    .results-summary {
+      text-align: center;
+      padding: 32px 16px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 24px;
+    }
+
+    .results-summary h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .score-display {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .score-percentage {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+    }
+
+    .review-section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .review-item {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-surface);
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border);
+      border-left-width: 4px;
+    }
+
+    .review-item.correct { border-left-color: var(--color-success); }
+    .review-item.incorrect { border-left-color: var(--color-danger); }
+    .review-item.no-key { border-left-color: var(--color-text-secondary); }
+
+    .review-q-num {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .review-question {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .review-answer {
+      font-size: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .review-answer.user { color: var(--color-text-secondary); }
+    .review-answer.correct-ans { color: var(--color-success); font-weight: 500; }
+    .review-answer.no-key-ans { color: var(--color-text-secondary); font-style: italic; }
+
+    .review-label {
+      font-size: 12px;
+      opacity: 0.8;
+      min-width: 100px;
+    }
+  an>
 </head>
 <body>
-  <div id="app">
-    <header id="app-header">
-      <h1 id="header-title">CEFR Mock Exams</h1>
-      <button id="pdf-btn" class="btn btn-secondary hidden" type="button">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-        Asl PDF'ni ochish
+
+  <!-- Application Header -->
+  <header id="app-header">
+    <h1 id="header-title">CEFR Mock Exams</h1>
+    <button id="pdf-btn" class="btn btn-secondary hidden" type="button" aria-label="Asl PDF faylni ochish">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+      </svg>
+      Asl PDF'ni ochish
+    </button>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content">
+
+    <!-- VIEW 1: Mock List -->
+    <section id="mock-list-view" class="view active" aria-label="Imtihonlar ro'yxati">
+      <div class="filter-bar" role="tablist" aria-label="Daraja bo'yicha filtrlash">
+        <button class="filter-btn active" data-level="ALL" role="tab" aria-selected="true">Barchasi</button>
+        <button class="filter-btn" data-level="B1" role="tab" aria-selected="false">B1</button>
+        <button class="filter-btn" data-level="B2" role="tab" aria-selected="false">B2</button>
+        <button class="filter-btn" data-level="C1" role="tab" aria-selected="false">C1</button>
+      </div>
+      <div id="mocks-container" class="mocks-grid">
+        <!-- Mock cards will be injected here by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: Module Selection -->
+    <section id="module-view" class="view" aria-label="Modul tanlash">
+      <div id="module-header-info" class="info-block">
+        <!-- Mock title and level info injected here -->
+     24px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--color-border);">
+      <div id="timer-display" class="timer text-tabular" aria-live="polite">--:--</div>
+      <button id="flag-toggle-btn" class="btn btn-icon" title="Ko'rib chiqish uchun belgilash" aria-label="Savolni belgilash">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+          <line x1="4" y1="22" x2="4" y2="15"></line>
+        </svg>
       </button>
-    </header>
+    </div>
+    
+    <!-- Question Navigator Grid -->
+    <div id="question-navigator" class="question-nav" role="tablist" aria-label="Savollar navigatsiyasi">
+      <!-- Navigation buttons injected by JS -->
+    </div>
+    
+    <!-- Dynamic Exam Content -->
+    <div id="exam-content" class="exam-content">
+      <!-- Passage, questions, audio, or writing areas injected here -->
+    </div>
+  </section>
 
-    <main id="main-content">
-      <!-- Mock List View -->
-      <section id="mock-list-view" class="view active">
-        <div class="filter-bar">
-          <button class="filter-btn active" data-level="ALL">Barchasi</button>
-          <button class="filter-btn" data-level="B1">B1</button>
-          <button class="filter-btn" data-level="B2">B2</button>
-          <button class="filter-btn" data-level="C1">C1</button>
-        </div>
-        <div id="mocks-container" class="mocks-grid"></div>
-      </section>
+    <!-- VIEW 4: Results -->
+    <section id="results-view" class="view" aria-label="Natijalar">
+      <div id="results-summary" class="results-summary">
+        <h2>Umumiy Natija</h2>
+        <div class="score-display" id="score-value">0 / 0</div>
+        <div class="score-percentage" id="score-percentage">0% to'g'ri javob</div>
+      </div>
+      
+      <div class="review-section-title">Batafsil Tahlil</div>
+      <div id="results-review">
+        <!-- Review items injected by JS -->
+      </div>
+    </section>
 
-      <!-- Module Selection View -->
-      <section id="module-view" class="view">
-        <div id="module-header-info" class="info-block"></div>
-        <div id="modules-grid" class="modules-grid"></div>
-      </section>
+  </main>
 
-      <!-- Exam Interface View -->
-      <section id="exam-view" class="view">
-        <div class="exam-top-bar">
-          <div id="timer-display" class="timer" aria-live="polite">--:--</div>
-          <button id="flag-toggle-btn" class="btn btn-icon" title="Ko'rib chiqish uchun belgilash" aria-label="Belgilash">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-          </button>
-        </div>
-        
-        <div id="question-navigator" class="question-nav" role="tablist" aria-label="Savollar navigatsiyasi"></div>
-        
-        <div id="exam-content" class="exam-content">
-          <!-- Dynamic content injected here -->
-        </div>
-      </section>
-
-      <!-- Results View -->
-      <section id="results-view" class="view">
-        <div id="results-summary" class="results-summary"></div>
-        <div id="results-review" class="results-review"></div>
-      </section>
-    </main>
-  </div>
+  <!-- External Application Logic -->
   <script src="app.js"></script>
 </body>
 </html>
