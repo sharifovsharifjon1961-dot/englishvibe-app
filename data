@@ -1,0 +1,123 @@
+{
+  "mocks": [
+    {
+      "id": "b2-01",
+      "level": "B2",
+      "title": "CEFR Mock Exam B2 - 1",
+      "pdf": "https://drive.google.com/file/d/10VRHShKOfa2D2EN5v_sNv1eTVgbEYBM1/view?usp=drive_link",
+      "reading": {
+        "time": 60,
+        "parts": [
+          {
+            "passage": "Reading passage 1 content...",
+            "questions": [
+              {
+                "q": "Sample question 1?",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "answer": 0
+              }
+            ]
+          }
+        ]
+      },
+      "listening": {
+        "time": 40,
+        "maxReplays": 2,
+        "parts": [
+          {
+            "audio": "",
+            "questions": []
+          }
+        ]
+      },
+      "speaking": {
+        "parts": [
+          {
+            "prep": 60,
+            "talk": 120,
+            "prompt": "Speaking prompt..."
+          }
+        ]
+      },
+      "writing": {
+        "time": 60,
+        "tasks": [
+          {
+            "prompt": "Writing task prompt...",
+            "minWords": 150
+          }
+        ]
+      }
+    },
+    {
+      "id": "b2-02",
+      "level": "B2",
+      "title": "CEFR Mock Exam B2 - 2",
+      "pdf": "https://drive.google.com/file/d/1H2moKWCZH5sWqKF8gCrju2WpIoJIjIKJ/view?usp=drive_link",
+      "reading": { "time": 60, "parts": [] },
+      "listening": { "time": 40, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 60, "tasks": [] }
+    },
+    {
+      "id": "b2-03",
+      "level": "B2",
+      "title": "CEFR Mock Exam B2 - 3",
+      "pdf": "https://drive.google.com/file/d/1ZT2byvtOfVwyn7fFKP8thM1zhREg1JX9/view?usp=drive_link",
+      "reading": { "time": 60, "parts": [] },
+      "listening": { "time": 40, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 60, "tasks": [] }
+    },
+    {
+      "id": "b1-01",
+      "level": "B1",
+      "title": "CEFR Mock Exam B1 - 1",
+      "pdf": "https://drive.google.com/file/d/1bJwFrTeXBgQi4m8gsafP56PRT5AVRE3t/view?usp=drive_link",
+      "reading": { "time": 50, "parts": [] },
+      "listening": { "time": 30, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 45, "tasks": [] }
+    },
+    {
+      "id": "b1-02",
+      "level": "B1",
+      "title": "CEFR Mock Exam B1 - 2",
+      "pdf": "https://drive.google.com/file/d/11xw2h2FbY_VebMiGiLdhELPLxF8aIZ34/view?usp=drive_link",
+      "reading": { "time": 50, "parts": [] },
+      "listening": { "time": 30, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 45, "tasks": [] }
+    },
+    {
+      "id": "c1-01",
+      "level": "C1",
+      "title": "CEFR Mock Exam C1 - 1",
+      "pdf": "https://drive.google.com/file/d/1Q9zUNGWw1GlrQ2HQa0_qw8LBsAuQi9mz/view?usp=drive_link",
+      "reading": { "time": 70, "parts": [] },
+      "listening": { "time": 50, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 70, "tasks": [] }
+    },
+    {
+      "id": "c1-02",
+      "level": "C1",
+      "title": "CEFR Mock Exam C1 - 2",
+      "pdf": "https://drive.google.com/file/d/1pBvTm8KrOJ4WvAM2dBLk8YGa2NABWkzb/view?usp=drive_link",
+      "reading": { "time": 70, "parts": [] },
+      "listening": { "time": 50, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 70, "tasks": [] }
+    },
+    {
+      "id": "c1-03",
+      "level": "C1",
+      "title": "CEFR Mock Exam C1 - 3",
+      "pdf": "https://drive.google.com/file/d/15_5oZm6i66f2CU9vo_ddbWjt6ZwPCgHQ/view?usp=drive_link",
+      "reading": { "time": 70, "parts": [] },
+      "listening": { "time": 50, "parts": [] },
+      "speaking": { "parts": [] },
+      "writing": { "time": 70, "tasks": [] }
+    }
+  ]
+}
