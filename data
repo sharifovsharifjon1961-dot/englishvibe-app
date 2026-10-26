@@ -1,123 +1,198 @@
 {
   "mocks": [
     {
+      "id": "b1-01",
+      "level": "B1",
+      "title": "B1 Preliminary Mock Exam 1",
+      "pdf": "https://drive.google.com/file/d/1B1M0CK1/view",
+      "modules": {
+        "reading": {
+          "time": 30,
+          "passage": "The city of Bristol is known for its vibrant culture and historic docks. Every year, thousands of tourists visit the SS Great Britain, a famous ship designed by Isambard Kingdom Brunel. The city also hosts an international balloon festival in August, filling the sky with colorful shapes. Local businesses thrive on this tourism, offering guided tours and traditional food.",
+          "questions": [
+            { "id": "b1-01-r1", "text": "What is Bristol famous for?", "options": ["Its modern skyscrapers", "Its historic docks and SS Great Britain", "Its mountain ranges", "Its desert landscapes"], "correctIndex": 1 },
+            { "id": "b1-01-r2", "text": "When does the balloon festival take place?", "options": ["In January", "In August", "In December", "In May"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 20,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+          "questions": [
+            { "id": "b1-01-l1", "text": "What is the main topic of the audio?", "options": ["A cooking recipe", "A travel announcement", "A weather forecast", "A sports match"], "correctIndex": 1 }
+          ]
+        },
+        "speaking": { "time": 10, "prompts": ["Describe your favorite way to spend a weekend.", "Talk about a book or movie you recently enjoyed."] },
+        "writing": { "time": 30, "tasks": [{ "prompt": "Write an email to a friend inviting them to your birthday party. Include the time, place, and what to bring.", "minWords": 100 }] }
+      }
+    },
+    {
+      "id": "b1-02",
+      "level": "B1",
+      "title": "B1 Preliminary Mock Exam 2",
+      "pdf": "https://drive.google.com/file/d/1B1M0CK2/view",
+      "modules": {
+        "reading": {
+          "time": 30,
+          "passage": "Eating a balanced diet is essential for maintaining good health. Nutritionists recommend consuming a variety of fruits, vegetables, whole grains, and lean proteins. Processed foods, which are often high in sugar and salt, should be limited. Drinking plenty of water and engaging in regular physical activity are also key components of a healthy lifestyle.",
+          "questions": [
+            { "id": "b1-02-r1", "text": "What do nutritionists recommend?", "options": ["Eating only processed foods", "Consuming a variety of whole foods", "Avoiding all physical activity", "Drinking sugary beverages"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 20,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+          "questions": [
+            { "id": "b1-02-l1", "text": "Where is this announcement taking place?", "options": ["At a train station", "In a library", "At a hospital", "In a school"], "correctIndex": 1 }
+          ]
+        },
+        "speaking": { "time": 10, "prompts": ["Describe a hobby you have.", "Talk about your best friend."] },
+        "writing": { "time": 30, "tasks": [{ "prompt": "Write a letter of complaint to a hotel manager about a problem you had during your stay.", "minWords": 100 }] }
+      }
+    },
+    {
       "id": "b2-01",
       "level": "B2",
-      "title": "CEFR Mock Exam B2 - 1",
-      "pdf": "https://drive.google.com/file/d/10VRHShKOfa2D2EN5v_sNv1eTVgbEYBM1/view?usp=drive_link",
-      "reading": {
-        "time": 60,
-        "parts": [
-          {
-            "passage": "Reading passage 1 content...",
-            "questions": [
-              {
-                "q": "Sample question 1?",
-                "options": ["Option A", "Option B", "Option C", "Option D"],
-                "answer": 0
-              }
-            ]
-          }
-        ]
-      },
-      "listening": {
-        "time": 40,
-        "maxReplays": 2,
-        "parts": [
-          {
-            "audio": "",
-            "questions": []
-          }
-        ]
-      },
-      "speaking": {
-        "parts": [
-          {
-            "prep": 60,
-            "talk": 120,
-            "prompt": "Speaking prompt..."
-          }
-        ]
-      },
-      "writing": {
-        "time": 60,
-        "tasks": [
-          {
-            "prompt": "Writing task prompt...",
-            "minWords": 150
-          }
-        ]
+      "title": "B2 First Mock Exam 1",
+      "pdf": "https://drive.google.com/file/d/1B2M0CK1/view",
+      "modules": {
+        "reading": {
+          "time": 60,
+          "passage": "The Impact of Remote Work on Urban Development\n\nIn recent years, the shift towards remote work has fundamentally altered the landscape of urban development. City centres, once bustling with commuters, have experienced a noticeable decline in daytime foot traffic. This phenomenon has prompted urban planners to reconsider the traditional zoning laws that separate residential, commercial, and industrial areas.\n\nProponents of mixed-use development argue that integrating residential spaces with offices and retail can create more vibrant, resilient communities.",
+          "questions": [
+            { "id": "b2-01-r1", "text": "What is the main idea of the passage?", "options": ["Remote work has completely destroyed city centres.", "Urban planners are ignoring the effects of remote work.", "Remote work is prompting a reevaluation of urban development and zoning.", "Mixed-use development is universally rejected by critics."], "correctIndex": 2 },
+            { "id": "b2-01-r2", "text": "What is a challenge of transitioning to mixed-use development?", "options": ["It increases daytime foot traffic too much.", "Commercial property owners face financial losses.", "It requires destroying architectural heritage.", "Local businesses are thriving too quickly."], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+          "questions": [
+            { "id": "b2-01-l1", "text": "What is the professor's main argument?", "options": ["Sleep is irrelevant to cognitive function.", "Adequate sleep is essential for memory consolidation.", "Students should study all night before exams.", "Dreams have no psychological significance."], "correctIndex": 1 }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Describe a time when you had to adapt to a significant change in your life or work.", "Do you think technology has made people more isolated or more connected?"] },
+        "writing": { "time": 60, "tasks": [{ "prompt": "Write an essay discussing the advantages and disadvantages of remote work for both employees and employers. Give your own opinion.", "minWords": 150 }] }
       }
     },
     {
       "id": "b2-02",
       "level": "B2",
-      "title": "CEFR Mock Exam B2 - 2",
-      "pdf": "https://drive.google.com/file/d/1H2moKWCZH5sWqKF8gCrju2WpIoJIjIKJ/view?usp=drive_link",
-      "reading": { "time": 60, "parts": [] },
-      "listening": { "time": 40, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 60, "tasks": [] }
+      "title": "B2 First Mock Exam 2",
+      "pdf": "https://drive.google.com/file/d/1B2M0CK2/view",
+      "modules": {
+        "reading": {
+          "time": 60,
+          "passage": "The Psychology of Habit Formation\n\nHabits are the invisible architecture of daily life. Researchers suggest that up to 40 percent of the actions people perform each day are not actual decisions, but habits. The habit loop, a concept popularized by Charles Duhigg, consists of three components: a cue, a routine, and a reward.",
+          "questions": [
+            { "id": "b2-02-r1", "text": "What percentage of daily actions are estimated to be habits?", "options": ["20 percent", "40 percent", "60 percent", "80 percent"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "",
+          "questions": [
+            { "id": "b2-02-l1", "text": "What is the main topic?", "options": ["History", "Science", "Art", "Music"], "correctIndex": null }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Talk about a book or film that has significantly influenced your perspective on life."] },
+        "writing": { "time": 60, "tasks": [{ "prompt": "Write a report for a college tutor describing a recent educational trip.", "minWords": 150 }] }
+      }
     },
     {
       "id": "b2-03",
       "level": "B2",
-      "title": "CEFR Mock Exam B2 - 3",
-      "pdf": "https://drive.google.com/file/d/1ZT2byvtOfVwyn7fFKP8thM1zhREg1JX9/view?usp=drive_link",
-      "reading": { "time": 60, "parts": [] },
-      "listening": { "time": 40, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 60, "tasks": [] }
-    },
-    {
-      "id": "b1-01",
-      "level": "B1",
-      "title": "CEFR Mock Exam B1 - 1",
-      "pdf": "https://drive.google.com/file/d/1bJwFrTeXBgQi4m8gsafP56PRT5AVRE3t/view?usp=drive_link",
-      "reading": { "time": 50, "parts": [] },
-      "listening": { "time": 30, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 45, "tasks": [] }
-    },
-    {
-      "id": "b1-02",
-      "level": "B1",
-      "title": "CEFR Mock Exam B1 - 2",
-      "pdf": "https://drive.google.com/file/d/11xw2h2FbY_VebMiGiLdhELPLxF8aIZ34/view?usp=drive_link",
-      "reading": { "time": 50, "parts": [] },
-      "listening": { "time": 30, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 45, "tasks": [] }
+      "title": "B2 First Mock Exam 3",
+      "pdf": "https://drive.google.com/file/d/1B2M0CK3/view",
+      "modules": {
+        "reading": {
+          "time": 60,
+          "passage": "Renewable energy sources, such as solar and wind power, are becoming increasingly cost-competitive with fossil fuels. This transition is driven by technological advancements and government incentives aimed at reducing carbon emissions. However, the intermittency of these sources remains a significant challenge for grid stability.",
+          "questions": [
+            { "id": "b2-03-r1", "text": "What is a challenge mentioned in the text?", "options": ["High costs", "Intermittency", "Lack of sunlight", "Government bans"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+          "questions": [
+            { "id": "b2-03-l1", "text": "What is the speaker's tone?", "options": ["Optimistic", "Pessimistic", "Neutral", "Angry"], "correctIndex": 0 }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Discuss the environmental impact of fast fashion."] },
+        "writing": { "time": 60, "tasks": [{ "prompt": "Write an article for a magazine about the benefits of learning a second language.", "minWords": 150 }] }
+      }
     },
     {
       "id": "c1-01",
       "level": "C1",
-      "title": "CEFR Mock Exam C1 - 1",
-      "pdf": "https://drive.google.com/file/d/1Q9zUNGWw1GlrQ2HQa0_qw8LBsAuQi9mz/view?usp=drive_link",
-      "reading": { "time": 70, "parts": [] },
-      "listening": { "time": 50, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 70, "tasks": [] }
+      "title": "C1 Advanced Mock Exam 1",
+      "pdf": "https://drive.google.com/file/d/1C1M0CK1/view",
+      "modules": {
+        "reading": {
+          "time": 90,
+          "passage": "The proliferation of artificial intelligence in creative industries has sparked a contentious debate regarding the nature of authorship and originality. While algorithms can now generate prose, poetry, and visual art with startling proficiency, critics argue that these outputs lack the intrinsic human experience and emotional resonance that define true artistry.",
+          "questions": [
+            { "id": "c1-01-r1", "text": "What is the critics' main argument against AI art?", "options": ["It is too expensive", "It lacks intrinsic human experience and emotional resonance", "It is illegal", "It is too slow"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+          "questions": [
+            { "id": "c1-01-l1", "text": "What is the lecture primarily about?", "options": ["Quantum physics", "Linguistic relativity", "Macroeconomics", "Botany"], "correctIndex": 1 }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Evaluate the extent to which globalization has eroded cultural identity."] },
+        "writing": { "time": 90, "tasks": [{ "prompt": "Write a proposal for a local council outlining a plan to improve community mental health services.", "minWords": 220 }] }
+      }
     },
     {
       "id": "c1-02",
       "level": "C1",
-      "title": "CEFR Mock Exam C1 - 2",
-      "pdf": "https://drive.google.com/file/d/1pBvTm8KrOJ4WvAM2dBLk8YGa2NABWkzb/view?usp=drive_link",
-      "reading": { "time": 70, "parts": [] },
-      "listening": { "time": 50, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 70, "tasks": [] }
+      "title": "C1 Advanced Mock Exam 2",
+      "pdf": "https://drive.google.com/file/d/1C1M0CK2/view",
+      "modules": {
+        "reading": {
+          "time": 90,
+          "passage": "Historical revisionism, while a legitimate scholarly endeavor when grounded in new evidence, can sometimes veer into the realm of denialism when motivated by ideological agendas. The distinction lies in the rigorous adherence to the scientific method and the willingness to subject hypotheses to peer review.",
+          "questions": [
+            { "id": "c1-02-r1", "text": "What distinguishes legitimate revisionism from denialism?", "options": ["The length of the text", "Rigorous adherence to the scientific method", "The author's fame", "The publisher's location"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "",
+          "questions": [
+            { "id": "c1-02-l1", "text": "What conclusion does the speaker draw?", "options": ["A", "B", "C", "D"], "correctIndex": 2 }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Discuss the ethical implications of genetic engineering in humans."] },
+        "writing": { "time": 90, "tasks": [{ "prompt": "Write a review of a recent exhibition or performance, assessing its artistic merit and cultural significance.", "minWords": 220 }] }
+      }
     },
     {
       "id": "c1-03",
       "level": "C1",
-      "title": "CEFR Mock Exam C1 - 3",
-      "pdf": "https://drive.google.com/file/d/15_5oZm6i66f2CU9vo_ddbWjt6ZwPCgHQ/view?usp=drive_link",
-      "reading": { "time": 70, "parts": [] },
-      "listening": { "time": 50, "parts": [] },
-      "speaking": { "parts": [] },
-      "writing": { "time": 70, "tasks": [] }
+      "title": "C1 Advanced Mock Exam 3",
+      "pdf": "https://drive.google.com/file/d/1C1M0CK3/view",
+      "modules": {
+        "reading": {
+          "time": 90,
+          "passage": "The concept of universal basic income (UBI) has transitioned from a fringe economic theory to a mainstream policy proposal. Proponents argue it provides a safety net in an era of automation, while detractors warn of inflationary pressures and the potential erosion of the work ethic.",
+          "questions": [
+            { "id": "c1-03-r1", "text": "What is a detractor's concern about UBI?", "options": ["It is too complex", "Inflationary pressures and erosion of work ethic", "It favors the rich", "It is unconstitutional"], "correctIndex": 1 }
+          ]
+        },
+        "listening": {
+          "time": 40,
+          "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+          "questions": [
+            { "id": "c1-03-l1", "text": "What is the speaker's stance?", "options": ["Strongly against", "Cautiously supportive", "Completely indifferent", "Highly enthusiastic"], "correctIndex": 1 }
+          ]
+        },
+        "speaking": { "time": 15, "prompts": ["Analyze the role of social media in shaping modern political discourse."] },
+        "writing": { "time": 90, "tasks": [{ "prompt": "Write an essay evaluating the effectiveness of international climate agreements.", "minWords": 220 }] }
+      }
     }
   ]
 }
